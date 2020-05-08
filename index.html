@@ -1,0 +1,79 @@
+﻿<html>
+
+<head>
+    <title> DOB - units calculation </title>
+    <script type="text/javascript">
+        function age() {
+           // debugger;
+            var today = new Date();
+            
+            var birthdate = document.getElementById('DOB').value; // in "dd/MM/yyyy" format
+          //  var senddate = document.getElementById('Date').value; // in "dd/MM/yyyy" format
+            var x = birthdate.split("/");
+           // var y = senddate.split("/");
+            var bdays = x[0];
+            var bmonths = x[1];
+            var byear = x[2];
+
+           // alert(bdays);
+            var sdays = today.getDate();
+            var smonths =today.getMonth() + 1;
+            var syear = today.getFullYear();
+            var sdaysp = parseInt(sdays);
+            var smonthsp = parseInt(smonths);
+            var syearp = parseInt(syear);
+            const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+            const firstDate = new Date(byear, bmonths, bdays);
+            const secondDate = new Date(syearp, smonthsp, sdaysp);
+
+            const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+           // alert(sdays);
+            if (sdays < bdays) {
+                sdays = parseInt(sdays) + 30;
+                smonths = parseInt(smonths) - 1;
+                //alert(sdays);
+                var fdays = sdays - bdays;
+                //alert(fdays);
+            }
+            else {
+                var fdays = sdays - bdays;
+            }
+            if (smonths < bmonths) {
+                smonths = parseInt(smonths) + 12;
+                syear = syear - 1;
+                var fmonths = smonths - bmonths;
+            }
+            else {
+                var fmonths = smonths - bmonths;
+            }
+            var fyear = syear - byear;
+           // alert(fyear + ' years ' + fmonths + ' months ' + fdays + ' days');
+            var d = new Date();
+            var phours = d.getHours();
+            var pminutes = d.getMinutes();
+            var pseconds = d.getSeconds();
+
+            var age_months = (fyear * 12) + fmonths;
+            var age_days = diffDays;
+          
+            var age_hours = (age_days * 24) + phours;
+            var age_minutes = (age_hours * 60) + pminutes;
+            var age_secounds = (age_minutes * 60) + pseconds;
+            document.getElementById('txt').innerHTML = fyear + ' years ' + "<br />" + age_months + ' months ' + "<br />" + age_days + ' days' + "<br />" + age_hours +
+                ' hours ' + "<br />" + age_minutes + ' minutes ' + "<br />" + age_secounds + ' seconds ';
+
+            setTimeout(age, 500);
+            
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        Date of Birth <input type="text" id="DOB" name="DOB" placeholder="dd/mm/yyyy "> <br /><button type="Button" onclick="age()">Calculate</button>
+
+    </div>
+    <div id="txt"></div>
+</body>
+
+</html>
